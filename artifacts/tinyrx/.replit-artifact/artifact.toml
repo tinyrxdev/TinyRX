@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "TinyRx — Coming Soon"
+version = "1.0.0"
+id = "artifacts/tinyrx"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22880
+
+[services.development]
+run = "pnpm --filter @workspace/tinyrx run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/tinyrx", "run", "build" ]
+publicDir = "artifacts/tinyrx/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22880"
+BASE_PATH = "/"
